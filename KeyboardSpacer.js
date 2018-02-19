@@ -87,7 +87,8 @@ export default class KeyboardSpacer extends Component {
     LayoutAnimation.configureNext(animationConfig);
 
     // get updated on rotation
-    let additionalTopSpace = isIphoneX()? -32 : 0;
+    
+    let additionalTopSpace = Platform.OS === 'ios' && ((Dimensions.get('window').height === 812 || Dimensions.get('window').width === 812)) ? -34 : 0;
     const screenHeight = Dimensions.get('window').height;
     // when external physical keyboard is connected
     // event.endCoordinates.height still equals virtual keyboard height
@@ -98,14 +99,6 @@ export default class KeyboardSpacer extends Component {
       isKeyboardOpened: true
     }, this.props.onToggle(true, keyboardSpace));
   }
-
-isIphoneX() {
-    const dimen = Dimensions.get('window');
-    return (
-        Platform.OS === 'ios' &&
-        (dimen.height === 812 || dimen.width === 812)
-    );
-}
 
   resetKeyboardSpace(event) {
     let animationConfig = defaultAnimation;
